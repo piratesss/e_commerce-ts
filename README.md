@@ -1,8 +1,12 @@
-## E-Commerce migrated to typescript
+## E-Commerce typescript
 
 # to run backend
 
 -   git clone
 -   npm i / npm install
 -   npm run server
-"# e_commerce-ts" 
+
+### Features
+
+-   Login with authentication
+    -   Bearer token is updated on API hit in the headers w 15m of expiry
