@@ -1,4 +1,5 @@
 import pool from '../../config/db';
+import { GET_USER_BY_ID } from '../../queries';
 
 interface User {
     id: string;
@@ -29,4 +30,20 @@ const getAllUsersService = async (): Promise<GetAllUsersServiceResult> => {
     }
 };
 
-export { getAllUsersService };
+interface GetUserByIdResponse {
+    rows: User;
+}
+
+type TGetUserByIdResponse = [GetUserByIdResponse, null] | [null, string];
+
+const getUserByIdService = async (id: string): Promise<any> => {
+    try {
+        const getUserById = await pool.query(GET_USER_BY_ID, [id]);
+        return [getUserById, null];
+    } catch (error) {
+        console.error('Error checking if user exists:', error);
+        return [null, error.message];
+    }
+};
+
+export { getAllUsersService, getUserByIdService };

@@ -1,6 +1,6 @@
 import expressAsyncHandler from 'express-async-handler';
 
-import { getAllUsersService } from './userService';
+import { getAllUsersService, getUserByIdService } from './userService';
 
 const getAllUsers = expressAsyncHandler(async (req: any, res: any) => {
     const [allUsers, allUsersError] = await getAllUsersService();
@@ -23,4 +23,23 @@ const getAllUsers = expressAsyncHandler(async (req: any, res: any) => {
     }
 });
 
-export { getAllUsers };
+const getUserById = expressAsyncHandler(async (req: any, res: any) => {
+    const id = req?.params?.id;
+
+    const [userById, userByIdError] = await getUserByIdService(id);
+
+    if (userByIdError) {
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    if (userById) {
+        const userIdWithoutPassword = userById.rows.map(user => {
+            const { password, ...userWithoutPassword } = user;
+            return userWithoutPassword;
+        });
+
+        res.status(200).json(userIdWithoutPassword);
+    }
+});
+
+export { getAllUsers, getUserById };
