@@ -1,4 +1,5 @@
 import expressAsyncHandler from 'express-async-handler';
+
 import { getAllUsersService } from './userService';
 
 const getAllUsers = expressAsyncHandler(async (req: any, res: any) => {
