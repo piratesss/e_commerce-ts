@@ -1,10 +1,9 @@
 import expressAsyncHandler from 'express-async-handler';
 
-import { generateAccessToken } from '../../utils';
 import { checkIfEmailExists } from '../../helpers';
-import { matchPassword } from '../../utils/passwords';
+import { generateAccessToken, matchPassword } from '../../utils';
 
-const authUser = expressAsyncHandler(async (req: any, res: any) => {
+const userAuth = expressAsyncHandler(async (req: any, res: any) => {
     const { email, password } = req?.body;
 
     if (email?.trim === '' || password?.trim === '') {
@@ -48,4 +47,4 @@ const userLogout = expressAsyncHandler(async (req, res) => {
     res.status(200).json({ message: 'Logged out successfully' });
 });
 
-export { authUser, userLogout };
+export { userAuth, userLogout };

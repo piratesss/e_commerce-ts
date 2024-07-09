@@ -3,6 +3,7 @@ import express from 'express';
 
 import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
+import registerRoutes from './routes/registerRoutes';
 import { authenticateToken } from './middleware';
 
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/', authRoutes);
+app.use('/api/register', registerRoutes);
 app.use('/api/users', authenticateToken, userRoutes);
 
 app.listen(PORT, () => {
