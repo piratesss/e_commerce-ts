@@ -42,4 +42,10 @@ const authUser = expressAsyncHandler(async (req: any, res: any) => {
     }
 });
 
-export { authUser };
+const userLogout = expressAsyncHandler(async (req, res) => {
+    res.removeHeader('Authorization');
+
+    res.status(200).json({ message: 'Logged out successfully' });
+});
+
+export { authUser, userLogout };
