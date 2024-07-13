@@ -1,8 +1,14 @@
-import expressAsyncHandler from 'express-async-handler';
+import { Request, Response } from 'express';
 
-import { getAllUsersService, getUserByIdService } from '../services/userService';
+import {
+    deleteUserByIdService,
+    getAllUsersService,
+    getUserByIdService,
+    updateUserByIdService,
+} from '../services/userService';
+import { checkIfUserIdExists } from '../services/registerService';
 
-const getAllUsers = expressAsyncHandler(async (req: any, res: any) => {
+const getAllUsers = async (req: Request, res: Response) => {
     const [allUsers, allUsersError] = await getAllUsersService();
 
     if (allUsersError) {
@@ -21,9 +27,9 @@ const getAllUsers = expressAsyncHandler(async (req: any, res: any) => {
         console.error('Unexpected result: allUsers is not an array');
         return res.status(500).send('Unexpected result');
     }
-});
+};
 
-const getUserById = expressAsyncHandler(async (req: any, res: any) => {
+const getUserById = async (req: Request, res: Response) => {
     const id = req?.params?.id;
 
     const [userById, userByIdError] = await getUserByIdService(id);
@@ -40,6 +46,46 @@ const getUserById = expressAsyncHandler(async (req: any, res: any) => {
 
         res.status(200).json(userIdWithoutPassword);
     }
-});
+};
 
-export { getAllUsers, getUserById };
+const deleteUserById = async (req: Request, res: Response) => {
+    const id = req?.params?.id;
+
+    const [success, error] = await deleteUserByIdService(id);
+
+    if (error) {
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    if (success) {
+        res.status(200).json({ message: 'User deletion successful' });
+    }
+};
+
+const updateUserById = async (req: Request, res: Response) => {
+    const id = req?.params?.id;
+
+    try {
+        const [checkIfUserExits, checkUserError] = await checkIfUserIdExists(id);
+        if (checkUserError) {
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        if (checkIfUserExits?.rows?.length === 0) {
+            return res.status(400).send({ message: 'User does not exist' });
+        }
+
+        //@ts-expect-error req-error
+        const [_, updateError] = await updateUserByIdService(id, req);
+
+        if (updateError) {
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        return res.status(200).send({ message: 'User updated successfully' });
+    } catch (error) {
+        res.status(500).send('Internal Server Error');
+    }
+};
+``;
+
+export { getAllUsers, getUserById, deleteUserById, updateUserById };

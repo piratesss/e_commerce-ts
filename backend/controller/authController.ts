@@ -1,13 +1,14 @@
-import expressAsyncHandler from 'express-async-handler';
+import { Request, Response } from 'express';
 
-import { generateAccessToken, matchPassword, checkIfEmailExists } from '../utils';
+import { getUserDetails } from '../services/userAuthService';
+import { matchPassword, checkIfEmailExists, isEmpty } from '../utils';
 
-const userAuth = expressAsyncHandler(async (req: any, res: any) => {
+const userAuth = async (req: Request, res: Response) => {
     const { email, password } = req?.body;
 
-    if (email?.trim === '' || password?.trim === '') {
+    if (isEmpty(email) || isEmpty(password) || email.trim() === '' || password.trim() === '') {
         res.status(400);
-        throw new Error('Email or password is possbly empty');
+        throw new Error('Email or password is possibly empty');
     }
 
     try {
@@ -22,28 +23,28 @@ const userAuth = expressAsyncHandler(async (req: any, res: any) => {
 
         const verifyPassword = await matchPassword(password, userEmail?.rows?.[0]?.password);
 
-        if (userEmail?.rows?.length > 0 && verifyPassword) {
-            const user = {
-                id: userEmail?.rows?.[0]?.id,
-                email: userEmail?.rows?.[0]?.email,
-            };
+        const [userDetails, accessToken, errorOccurred] = getUserDetails(userEmail, verifyPassword);
 
-            const accessToken = generateAccessToken(user);
-
-            res.setHeader('Authorization', `Bearer ${accessToken}`);
-
-            res.status(201).json({ user });
+        if (errorOccurred) {
+            return res.status(400).send({ message: 'Invalid user or password' });
         }
+
+        if (userDetails && accessToken) {
+            res.setHeader('Authorization', `Bearer ${accessToken}`);
+            return res.status(201).json({ userDetails });
+        }
+
+        throw new Error('Unexpected case: userDetails or accessToken not available');
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).send('Internal Server Error');
+        return res.status(500).send('Internal Server Error');
     }
-});
+};
 
-const userLogout = expressAsyncHandler(async (req, res) => {
+const userLogout = async (req: Request, res: Response) => {
     res.removeHeader('Authorization');
 
     res.status(200).json({ message: 'Logged out successfully' });
-});
+};
 
 export { userAuth, userLogout };

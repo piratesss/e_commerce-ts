@@ -1,4 +1,4 @@
-import expressAsyncHandler from 'express-async-handler';
+import { Request, Response } from 'express';
 
 import {
     addUserToDB,
@@ -7,7 +7,7 @@ import {
 } from '../services/registerService';
 import { generateUniqueUUID, checkIfEmailExists } from '../utils';
 
-const userRegister = expressAsyncHandler(async (req: any, res: any) => {
+const userRegister = async (req: Request, res: Response) => {
     try {
         const id = generateUniqueUUID();
 
@@ -51,6 +51,6 @@ const userRegister = expressAsyncHandler(async (req: any, res: any) => {
         console.error('Error:', error);
         res.status(500).send('Internal Server Error');
     }
-});
+};
 
 export { userRegister };
