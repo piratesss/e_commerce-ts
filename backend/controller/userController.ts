@@ -6,7 +6,8 @@ import {
     getUserByIdService,
     updateUserByIdService,
 } from '../services/userService';
-import { checkIfUserIdExists } from '../services/registerService';
+import { APP_USER_TYPE } from '../config';
+import { checkIfIdExists } from '../services/registerService';
 
 const getAllUsers = async (req: Request, res: Response) => {
     const [allUsers, allUsersError] = await getAllUsersService();
@@ -66,7 +67,7 @@ const updateUserById = async (req: Request, res: Response) => {
     const id = req?.params?.id;
 
     try {
-        const [checkIfUserExits, checkUserError] = await checkIfUserIdExists(id);
+        const [checkIfUserExits, checkUserError] = await checkIfIdExists(id, APP_USER_TYPE.USER);
         if (checkUserError) {
             return res.status(500).json({ error: 'Internal server error' });
         }

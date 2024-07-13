@@ -1,7 +1,8 @@
 import pool from '../config/db';
+import { APP_USER_TYPE } from '../config';
 import { MulterRequest } from '../interface';
 import { DELETE_USER_BY_ID, GET_USER_BY_ID } from '../queries';
-import { uploadUserPhotoToCloudinary } from './registerService';
+import { uploadPhotoToCloudinaryByType } from './registerService';
 
 interface User {
     id: string;
@@ -74,7 +75,11 @@ const updateUserByIdService = async (id: string, req: MulterRequest) => {
         const hasImage = filePath !== '';
 
         if (hasImage) {
-            const [_, uploadError] = await uploadUserPhotoToCloudinary(filePath, id);
+            const [_, uploadError] = await uploadPhotoToCloudinaryByType(
+                filePath,
+                id,
+                APP_USER_TYPE.USER
+            );
             if (uploadError) {
                 throw uploadError;
             }
