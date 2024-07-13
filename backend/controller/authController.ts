@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import { APP_USER_TYPE } from '../config';
 import { getUserDetails } from '../services/userAuthService';
 import { matchPassword, checkIfEmailExists, isEmpty } from '../utils';
 
@@ -12,7 +13,10 @@ const userAuth = async (req: Request, res: Response) => {
     }
 
     try {
-        const [userEmail, _, emailError] = await checkIfEmailExists(req.body.email);
+        const [userEmail, _, emailError] = await checkIfEmailExists(
+            req.body.email,
+            APP_USER_TYPE.USER
+        );
         if (emailError) {
             return res.status(500).json({ error: 'Internal server error' });
         }
@@ -41,7 +45,7 @@ const userAuth = async (req: Request, res: Response) => {
     }
 };
 
-const userLogout = async (req: Request, res: Response) => {
+const userLogout = async (_req: Request, res: Response) => {
     res.removeHeader('Authorization');
 
     res.status(200).json({ message: 'Logged out successfully' });
