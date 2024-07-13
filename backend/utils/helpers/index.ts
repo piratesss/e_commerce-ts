@@ -4,7 +4,7 @@ import { CHECK_USER_EMAIL_EXISTS } from '../../queries';
 const checkIfEmailExists = async (email: string) => {
     try {
         const emailCheckResults = await pool.query(CHECK_USER_EMAIL_EXISTS, [email]);
-        if (emailCheckResults?.rows?.length) {
+        if (emailCheckResults?.rows) {
             return [emailCheckResults, true, null];
         }
         return [false, null];
