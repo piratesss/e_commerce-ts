@@ -1,8 +1,11 @@
 import expressAsyncHandler from 'express-async-handler';
 
-import { generateUniqueUUID } from '../../utils';
-import { checkIfEmailExists } from '../../helpers';
-import { addUserToDB, checkIfUserIdExists, uploadUserPhotoToCloudinary } from './registerService';
+import {
+    addUserToDB,
+    checkIfUserIdExists,
+    uploadUserPhotoToCloudinary,
+} from '../services/registerService';
+import { generateUniqueUUID, checkIfEmailExists } from '../utils';
 
 const userRegister = expressAsyncHandler(async (req: any, res: any) => {
     try {

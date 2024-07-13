@@ -1,5 +1,5 @@
-import pool from '../../config/db';
-import { GET_USER_BY_ID } from '../../queries';
+import pool from '../config/db';
+import { GET_USER_BY_ID } from '../queries';
 
 interface User {
     id: string;

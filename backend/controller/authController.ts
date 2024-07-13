@@ -1,7 +1,6 @@
 import expressAsyncHandler from 'express-async-handler';
 
-import { checkIfEmailExists } from '../../helpers';
-import { generateAccessToken, matchPassword } from '../../utils';
+import { generateAccessToken, matchPassword, checkIfEmailExists } from '../utils';
 
 const userAuth = expressAsyncHandler(async (req: any, res: any) => {
     const { email, password } = req?.body;

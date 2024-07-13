@@ -3,8 +3,8 @@ import express from 'express';
 
 import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
-import registerRoutes from './routes/registerRoutes';
 import { authenticateToken } from './middleware';
+import registerRoutes from './routes/registerRoutes';
 
 dotenv.config();
 

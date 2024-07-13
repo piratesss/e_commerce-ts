@@ -1,6 +1,6 @@
 import expressAsyncHandler from 'express-async-handler';
 
-import { getAllUsersService, getUserByIdService } from './userService';
+import { getAllUsersService, getUserByIdService } from '../services/userService';
 
 const getAllUsers = expressAsyncHandler(async (req: any, res: any) => {
     const [allUsers, allUsersError] = await getAllUsersService();
