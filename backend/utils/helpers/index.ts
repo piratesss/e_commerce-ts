@@ -1,5 +1,5 @@
-import pool from '../config/db';
-import { CHECK_USER_EMAIL_EXISTS } from '../queries/index';
+import pool from '../../config/db';
+import { CHECK_USER_EMAIL_EXISTS } from '../../queries';
 
 const checkIfEmailExists = async (email: string) => {
     try {

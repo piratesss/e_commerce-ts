@@ -1,7 +1,7 @@
-import pool from '../../config/db';
-import { hashPassword } from '../../utils';
-import { cloudinary } from '../../config/cloudinary';
-import { ADD_NEW_USER, GET_USER_BY_ID, INSERT_IMAGE_PUBLIC_ID_TO_USER_TABLE } from '../../queries';
+import pool from '../config/db';
+import { hashPassword } from '../utils';
+import { cloudinary } from '../config/cloudinary';
+import { ADD_NEW_USER, GET_USER_BY_ID, INSERT_IMAGE_PUBLIC_ID_TO_USER_TABLE } from '../queries';
 
 interface UserData {
     first_name: string;

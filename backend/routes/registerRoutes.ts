@@ -1,8 +1,8 @@
 import express from 'express';
 
+import { upload } from '../middleware';
 import { checkSingleFile } from '../utils';
-import { upload } from '../middleware/multer';
-import { userRegister } from '../controller/registerController/registerController';
+import { userRegister } from '../controller/registerController';
 
 const router = express.Router();
 

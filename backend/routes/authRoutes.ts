@@ -1,8 +1,6 @@
 import express from 'express';
 
-import { checkSingleFile } from '../utils';
-import { upload } from '../middleware/multer';
-import { userAuth, userLogout } from '../controller/authControler/authController';
+import { userAuth, userLogout } from '../controller/authController';
 
 const router = express.Router();
 
