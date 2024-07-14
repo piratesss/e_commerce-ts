@@ -1,4 +1,5 @@
 import pool from '../config/db';
+import { GET_ALL_AGENTS } from '../queries';
 
 interface Agent {
     id: string;
@@ -24,7 +25,7 @@ type TgetAllAgentsServiceResult = [GetAllAgentsResponse, null] | [null, string];
 
 const getAllAgentsService = async (): Promise<TgetAllAgentsServiceResult> => {
     try {
-        const getAllAgents = await pool.query(`SELECT * FROM "agent"`);
+        const getAllAgents = await pool.query(GET_ALL_AGENTS);
         return [{ rows: getAllAgents.rows }, null];
     } catch (error) {
         console.error('Error getting agent details:', error);

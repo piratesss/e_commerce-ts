@@ -7,20 +7,11 @@ import {
     INSERT_IMAGE_PUBLIC_ID_TO_USER_TABLE,
 } from '../queries';
 import pool from '../config/db';
+import { UserData } from '../interface';
 import { hashPassword } from '../utils';
 import { APP_USER_TYPE } from '../config';
 import { cloudinary } from '../config/cloudinary';
 
-interface UserData {
-    first_name: string;
-    middle_name: string;
-    last_name: string;
-    email: string;
-    password: string;
-    address: string;
-    phone_number: number;
-    payment_mode: string;
-}
 interface AgentData {
     company_name: string;
     company_email: string;

@@ -1,14 +1,9 @@
 import express from 'express';
 
-import {
-    getAllUsers,
-    getUserById,
-    deleteUserById,
-    updateUserById,
-} from '../controller/userController';
 import { upload } from '../middleware';
 import { checkSingleFile } from '../utils';
 import { getAllAgents } from '../controller/agentController';
+import { getUserById, deleteUserById, updateUserById } from '../controller/userController';
 
 const router = express.Router();
 

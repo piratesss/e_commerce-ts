@@ -15,6 +15,9 @@ const DELETE_USER_BY_ID = `DELETE FROM "user" where id = $1`;
 const INSERT_IMAGE_PUBLIC_ID_TO_USER_TABLE = `UPDATE "user" SET image_id = $1 where id = $2`;
 const INSERT_IMAGE_PUBLIC_ID_TO_AGENT_TABLE = `UPDATE "agent" SET agent_image_id = $1 where id = $2`;
 
+const GET_ALL_USERS = `SELECT * FROM "user"`;
+const GET_ALL_AGENTS = `SELECT * FROM "agent"`;
+
 export {
     ADD_NEW_USER,
     ADD_NEW_AGENT,
@@ -25,4 +28,6 @@ export {
     CHECK_AGENT_EMAIL_EXISTS,
     INSERT_IMAGE_PUBLIC_ID_TO_USER_TABLE,
     INSERT_IMAGE_PUBLIC_ID_TO_AGENT_TABLE,
+    GET_ALL_USERS,
+    GET_ALL_AGENTS,
 };
