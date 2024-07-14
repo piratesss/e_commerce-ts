@@ -8,6 +8,7 @@ const checkIfEmailExists = async (email: string, type: string) => {
         const emailCheckResults = await pool.query(query, [email]);
 
         if (emailCheckResults.rows.length > 0) {
+            console.log('here');
             return [true, emailCheckResults.rows, null];
         } else {
             return [false, null];

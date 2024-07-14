@@ -9,7 +9,7 @@ import {
 import { APP_USER_TYPE } from '../config';
 import { checkIfIdExists } from '../services/registerService';
 
-const getAllUsers = async (req: Request, res: Response) => {
+const getAllUsers = async (_req: Request, res: Response) => {
     const [allUsers, allUsersError] = await getAllUsersService();
 
     if (allUsersError) {
