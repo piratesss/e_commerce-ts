@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+
 import { APP_USER_TYPE } from '../config';
 
 export const authenticateUserToken = (req: any, res: any, next: any) => {

@@ -1,21 +1,8 @@
 import pool from '../config/db';
 import { APP_USER_TYPE } from '../config';
-import { MulterRequest } from '../interface';
-import { DELETE_USER_BY_ID, GET_USER_BY_ID } from '../queries';
+import { MulterRequest, User } from '../interface';
 import { uploadPhotoToCloudinaryByType } from './registerService';
-
-interface User {
-    id: string;
-    first_name: string;
-    email: string;
-    address: string;
-    phone_number: string;
-    payment_mode: string | null;
-    middle_name: string;
-    last_name: string;
-    password: string;
-    image_id: string | null;
-}
+import { DELETE_USER_BY_ID, GET_ALL_USERS, GET_USER_BY_ID } from '../queries';
 
 interface GetAllUsersResponse {
     rows: User[];
@@ -25,19 +12,13 @@ type GetAllUsersServiceResult = [GetAllUsersResponse, null] | [null, string];
 
 const getAllUsersService = async (): Promise<GetAllUsersServiceResult> => {
     try {
-        const getAllUsers = await pool.query(`SELECT * FROM "user"`);
+        const getAllUsers = await pool.query(GET_ALL_USERS);
         return [{ rows: getAllUsers.rows }, null];
     } catch (error) {
         console.error('Error getting user details:', error);
         return [null, error.message];
     }
 };
-
-interface GetUserByIdResponse {
-    rows: User;
-}
-
-type TGetUserByIdResponse = [GetUserByIdResponse, null] | [null, string];
 
 const getUserByIdService = async (id: string): Promise<any> => {
     try {

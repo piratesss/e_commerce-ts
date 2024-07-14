@@ -1,19 +1,18 @@
 import { APP_USER_TYPE } from '../config';
 import { generateAccessToken } from '../utils';
 
-interface User {
+interface UserAuth {
     id: string;
     email: string;
     role: string;
 }
 
-const getUserDetails = (
-    userEmail: User[],
-    password: boolean
-): [User | null, string | Error | null, boolean] => {
+type TgetUserDetails = [UserAuth | null, string | Error | null, boolean];
+
+const getUserDetails = (userEmail: UserAuth[], password: boolean): TgetUserDetails => {
     try {
         if (userEmail?.length > 0 && password) {
-            const user: User = {
+            const user: UserAuth = {
                 id: userEmail[0].id,
                 email: userEmail[0].email,
                 role: APP_USER_TYPE.USER,
@@ -29,20 +28,19 @@ const getUserDetails = (
     }
 };
 
-interface Agent {
+interface AgentAuth {
     id: string;
     email?: string;
     company_email?: string;
     role: string;
 }
 
-const getAgenDetails = (
-    agentEmail: Agent[],
-    password: boolean
-): [Agent | null, string | Error | null, boolean] => {
+type TgetAgenDetails = [AgentAuth | null, string | Error | null, boolean];
+
+const getAgenDetails = (agentEmail: AgentAuth[], password: boolean): TgetAgenDetails => {
     try {
         if (agentEmail?.length > 0 && password) {
-            const agent: Agent = {
+            const agent: AgentAuth = {
                 id: agentEmail[0].id,
                 email: agentEmail[0].company_email,
                 role: APP_USER_TYPE.AGENT,
