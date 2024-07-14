@@ -32,3 +32,7 @@ export const isEmpty = (value: TisEmpty): boolean => {
 
     return false;
 };
+
+export const isEmptyEmailAndPassword = (email: string, password: string) => {
+    return isEmpty(email) || isEmpty(password) || email.trim() === '' || password.trim() === '';
+};
