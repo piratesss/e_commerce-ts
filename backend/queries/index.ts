@@ -11,6 +11,7 @@ const GET_USER_BY_ID = `SELECT * FROM "user" WHERE id = $1`;
 const GET_AGENT_BY_ID = `SELECT * FROM "agent" WHERE id = $1`;
 
 const DELETE_USER_BY_ID = `DELETE FROM "user" where id = $1`;
+const DELETE_AGENT_BY_ID = `DELETE FROM "agent" where id = $1`;
 
 const INSERT_IMAGE_PUBLIC_ID_TO_USER_TABLE = `UPDATE "user" SET image_id = $1 where id = $2`;
 const INSERT_IMAGE_PUBLIC_ID_TO_AGENT_TABLE = `UPDATE "agent" SET agent_image_id = $1 where id = $2`;
@@ -24,6 +25,7 @@ export {
     GET_USER_BY_ID,
     GET_AGENT_BY_ID,
     DELETE_USER_BY_ID,
+    DELETE_AGENT_BY_ID,
     CHECK_USER_EMAIL_EXISTS,
     CHECK_AGENT_EMAIL_EXISTS,
     INSERT_IMAGE_PUBLIC_ID_TO_USER_TABLE,

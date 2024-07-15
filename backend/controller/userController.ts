@@ -6,9 +6,9 @@ import {
     getUserByIdService,
     updateUserByIdService,
 } from '../services/userService';
+import { UserData } from '../interface';
 import { APP_USER_TYPE } from '../config';
 import { checkIfIdExists } from '../services/registerService';
-import { UserData } from '../interface';
 
 const getAllUsers = async (_req: Request, res: Response) => {
     const [allUsers, allUsersError] = await getAllUsersService();
@@ -88,6 +88,5 @@ const updateUserById = async (req: Request, res: Response) => {
         res.status(500).send('Internal Server Error');
     }
 };
-``;
 
 export { getAllUsers, getUserById, deleteUserById, updateUserById };
