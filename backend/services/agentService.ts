@@ -1,21 +1,6 @@
 import pool from '../config/db';
-import { GET_ALL_AGENTS } from '../queries';
-
-interface Agent {
-    id: string;
-    company_name: string;
-    company_email: string;
-    company_registration_id: number;
-    business_number: number;
-    owner_name: string;
-    company_address: string;
-    company_geography: number;
-    company_description: number;
-    company_sector: string[];
-    company_website: string;
-    password: string;
-    image_id: string | null;
-}
+import { Agent } from '../interface/agent.interface';
+import { GET_AGENT_BY_ID, GET_ALL_AGENTS } from '../queries';
 
 interface GetAllAgentsResponse {
     rows: Agent[];
@@ -33,4 +18,14 @@ const getAllAgentsService = async (): Promise<TgetAllAgentsServiceResult> => {
     }
 };
 
-export { getAllAgentsService };
+const getAgentByIdService = async (id: string): Promise<any> => {
+    try {
+        const getAgentById = await pool.query(GET_AGENT_BY_ID, [id]);
+        return [getAgentById, null];
+    } catch (error) {
+        console.error('Error checking if agent exists:', error);
+        return [null, error.message];
+    }
+};
+
+export { getAllAgentsService, getAgentByIdService };

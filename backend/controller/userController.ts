@@ -8,6 +8,7 @@ import {
 } from '../services/userService';
 import { APP_USER_TYPE } from '../config';
 import { checkIfIdExists } from '../services/registerService';
+import { UserData } from '../interface';
 
 const getAllUsers = async (_req: Request, res: Response) => {
     const [allUsers, allUsersError] = await getAllUsersService();
@@ -40,7 +41,7 @@ const getUserById = async (req: Request, res: Response) => {
     }
 
     if (userById) {
-        const userIdWithoutPassword = userById.rows.map(user => {
+        const userIdWithoutPassword = userById.rows.map((user: UserData) => {
             const { password, ...userWithoutPassword } = user;
             return userWithoutPassword;
         });
