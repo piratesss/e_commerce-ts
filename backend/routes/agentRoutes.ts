@@ -1,16 +1,20 @@
 import express from 'express';
 
+import {
+    getAllAgents,
+    getAgentById,
+    deleteAgentById,
+    updateAgentById,
+} from '../controller/agentController';
 import { upload } from '../middleware';
 import { checkSingleFile } from '../utils';
-import { getAllAgents } from '../controller/agentController';
-import { getUserById, deleteUserById, updateUserById } from '../controller/userController';
 
 const router = express.Router();
 
 // TODO -> getAllAgents access only via system portal
 router.get('/', getAllAgents);
-router.get('/:id', getUserById);
-router.delete('/:id', deleteUserById);
-router.put('/:id', upload.any(), checkSingleFile, updateUserById);
+router.get('/:id', getAgentById);
+router.delete('/:id', deleteAgentById);
+router.put('/:id', upload.any(), checkSingleFile, updateAgentById);
 
 export default router;

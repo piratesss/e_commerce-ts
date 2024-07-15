@@ -6,6 +6,7 @@ import {
     getUserByIdService,
     updateUserByIdService,
 } from '../services/userService';
+import { UserData } from '../interface';
 import { APP_USER_TYPE } from '../config';
 import { checkIfIdExists } from '../services/registerService';
 
@@ -40,7 +41,7 @@ const getUserById = async (req: Request, res: Response) => {
     }
 
     if (userById) {
-        const userIdWithoutPassword = userById.rows.map(user => {
+        const userIdWithoutPassword = userById.rows.map((user: UserData) => {
             const { password, ...userWithoutPassword } = user;
             return userWithoutPassword;
         });
@@ -87,6 +88,5 @@ const updateUserById = async (req: Request, res: Response) => {
         res.status(500).send('Internal Server Error');
     }
 };
-``;
 
 export { getAllUsers, getUserById, deleteUserById, updateUserById };
